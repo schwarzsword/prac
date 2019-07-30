@@ -1,0 +1,29 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
+  app:
+    image: app
+    ports:
+    - "10880:10880"
+    depends_on:
+    - mypostgres
+  mypostgres:
+    image: postgres
+    ports:
+     - "5430:5432"
+    environment:
+     - POSTGRES_PASSWORD=admin
+     - POSTGRES_USER=admin
+     - POSTGRES_DB=mydb
+
+
+
